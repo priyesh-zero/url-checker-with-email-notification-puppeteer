@@ -6,7 +6,7 @@
   "scripts": {
     "securitiyOff": "set NODE_TLS_REJECT_UNAUTHORIZED=0",
     "securitiyOn": "set NODE_TLS_REJECT_UNAUTHORIZED=1",
-    "start": "node index.js >> logs\\latest.log",
+    "start": "node index.js > logs\\latest.log",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -4,7 +4,7 @@ console.log(new Date().toLocaleString())
 
 dotenv.config()
 
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 
 // local modules
 const { defaultReportTemplate, sendMail } = require('./modules/helper.functions')
