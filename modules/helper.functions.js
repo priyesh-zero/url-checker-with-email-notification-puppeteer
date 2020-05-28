@@ -6,11 +6,11 @@ const { EMAIL, PASSWORD, DISPLAY_NAME } = process.env
 // Create a transporter for the mailer
 
 var transporter = nodemailer.createTransport({
-  host: "smtp-mail.outlook.com", // hostname
-  secureConnection: false, // TLS requires secureConnection to be false
-  port: 587, // port for secure SMTP
+  host: "mail.mechlintech.com", // hostname
+  secureConnection: true, // TLS requires secureConnection to be false
+  port: 465, // port for secure SMTP
   tls: {
-     ciphers:'SSLv3',
+	  //ciphers:'SSLv3',
      rejectUnauthorized: false
   },
   auth: {
