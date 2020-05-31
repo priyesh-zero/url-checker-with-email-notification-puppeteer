@@ -7,7 +7,7 @@ dotenv.config()
 const puppeteer = require('puppeteer');
 
 // local modules
-const { defaultReportTemplate, sendMail } = require('./modules/helper.functions')
+const { sendNotification, defaultReportTemplate } = require('./modules/helper.functions')
 
 // files
 const URLS = require('./files/urls')
@@ -29,32 +29,15 @@ const main = async () => {
         try {
           const pageInfo = await page.goto(URL);
           reportArr.push(defaultReportTemplate(URL, pageInfo.headers().status, pageInfo.headers().status!=='200'))
+          if (pageInfo.headers().status!=='200') sendNotification(URL)
         } catch (ex) {
           reportArr.push(defaultReportTemplate(URL, 'Invalid Link', true))
+          sendNotification(URL)
         }
     }
     await browser.close();
     
     console.table(reportArr)
-
-    const email = `
-            <div >
-                <h3>Broken Link</h3>
-                <br/>
-                <p>
-                    The following link appears broken, please check.
-                    <br /><br />
-                    ${
-                        reportArr
-                        .map(report => report.broken ? `<a href="${report.url}" target="_blank">${report.url}</a><br /><br />` : '')
-                        .join('')
-                    }
-                    Thanking You!
-                </p>
-            </div>
-            `
-
-    sendMail(process.env.TO_EMAIL, email)
 }
 
 main()
